@@ -36,7 +36,12 @@ class Krog:
 
 
     def obdelaj_tipko(self, event):
-        if event.keysym == self.igra.GOR:
+        #na koncu
+        if self.igra.krog.lokacija == [ROB + 9 * A + B, ROB + 9 * A + B]:
+            self.igra.zacni_ponovno()
+            self.osvezi_prikaz()
+        #gor
+        elif event.keysym == self.igra.GOR:
             if self.igralna_plosca.find_overlapping(
                 self.igra.krog.lokacija[0] + 0.5 * VELIKOST,
                 self.igra.krog.lokacija[1] - B - VELIKOST,
@@ -54,6 +59,7 @@ class Krog:
             else:
                 self.igra.krog.premakni_se(model.GOR)
                 self.osvezi_prikaz()
+        #dol
         elif event.keysym == self.igra.DOL:
             if self.igralna_plosca.find_overlapping(
                 self.igra.krog.lokacija[0] + 0.5 * VELIKOST,
@@ -72,6 +78,7 @@ class Krog:
             else:
                 self.igra.krog.premakni_se(model.DOL)
                 self.osvezi_prikaz()
+        #levo
         elif event.keysym == self.igra.LEVO:
             if self.igralna_plosca.find_overlapping(
                 self.igra.krog.lokacija[0] - VELIKOST,
@@ -90,6 +97,7 @@ class Krog:
             else:
                 self.igra.krog.premakni_se(model.LEVO)
                 self.osvezi_prikaz()
+        #desno
         elif event.keysym == self.igra.DESNO:
             if self.igralna_plosca.find_overlapping(
                 self.igra.krog.lokacija[0] + 2 * VELIKOST,
@@ -102,6 +110,7 @@ class Krog:
                     self.igra.naloga_1()
                     self.igra.krog.premakni_se(model.DESNO)
                     self.osvezi_prikaz()
+                #za konec igre
                 elif self.igra.krog.lokacija == [
                     ROB + 8 * A + B, ROB + 9 * A + B]:
                     self.igra.krog.premakni_se(model.DESNO)
@@ -152,6 +161,7 @@ class Krog:
         #okvir
         self.igralna_plosca.create_rectangle(ROB, ROB, 10 * A + ROB,
                                              10 * A + ROB, width=2)
+        #Labirint:
         #vodoravne črte
         self.igralna_plosca.create_line(ROB, ROB + 1 * A,
                                         ROB + 2 * A, ROB + 1 * A, width=2)
@@ -257,9 +267,6 @@ class Krog:
             fill=self.igra.krog.barva
         )
       
-
-
-
 
 okno = tk.Tk()
 moj_program = Krog(okno)
